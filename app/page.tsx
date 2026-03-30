@@ -40,14 +40,14 @@ export default function LoginPage() {
       var left = screen.width - w - 50;
       var top = screen.height / 2 - h / 2;
 
-      window.open(
-        data.url,
-        "idpLoginPopup",
-        `width=${w},height=${h},top=${top},left=${left},resizable=no,scrollbars=yes,toolbar=no,menubar=no`
-      );
+      // window.open(
+      //   data.url,
+      //   "idpLoginPopup",
+      //   `width=${w},height=${h},top=${top},left=${left},resizable=no,scrollbars=yes,toolbar=no,menubar=no`
+      // );
 
       // fallback (optional)
-      // window.location.href = data.url;
+      window.location.href = data.url;
 
     } catch (error) {
       console.error("Login error:", error);
@@ -71,7 +71,7 @@ export default function LoginPage() {
       localStorage.removeItem("uaeFaceAccessToken");
 
       // logout redirect (kept same behavior, no UI change)
-      window.location.href = `/api/logout`; // optional if you create backend logout
+      window.location.href = `/api/logout`;
 
     } catch (error) {
       console.error("Error during logout:", error);

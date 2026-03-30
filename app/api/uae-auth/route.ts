@@ -1,7 +1,5 @@
 import { SignJWT, importPKCS8 } from "jose";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 
 export const runtime = "nodejs"; 
 
@@ -9,12 +7,7 @@ console.log("🔥 UAE AUTH FILE LOADED");
 
 export async function GET() {
   try {
-    console.log("ENV CHECK:", {
-      clientId: process.env.UAE_CLIENT_ID,
-      redirectUri: process.env.UAE_REDIRECT_URI,
-      baseUrl: process.env.UAE_BASE_URL,
-      keyPath: process.env.PRIVATE_KEY_PATH,
-    });
+    
 
     const clientId = process.env.UAE_CLIENT_ID!;
     const redirectUri = process.env.UAE_REDIRECT_URI!;
@@ -43,13 +36,13 @@ export async function GET() {
       jti: crypto.randomUUID(),
     };
 
-    const keyPath = path.join(process.cwd(), process.env.PRIVATE_KEY_PATH!);
+    const rawKey = process.env.PRIVATE_KEY;
 
-    if (!fs.existsSync(keyPath)) {
-      throw new Error("Private key file not found");
+    if (!rawKey) {
+    throw new Error("PRIVATE_KEY is missing in env");
     }
 
-    const pem = fs.readFileSync(keyPath, "utf8").trim();
+    const pem = rawKey.replace(/\\n/g, "\n");
 
     const key = await importPKCS8(pem, "RS256");
 
