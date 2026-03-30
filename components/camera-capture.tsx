@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import * as faceapi from "face-api.js"
+import * as faceapi from "@vladmandic/face-api"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Camera, RotateCcw, CheckCircle, ArrowLeft, Loader2 } from "lucide-react"
